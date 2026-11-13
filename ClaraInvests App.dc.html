@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-ed943f78-ef9f-4a9b-ab00-1a1977ff0a19/styles.css">
+<script src="_ds/nocturne-ed943f78-ef9f-4a9b-ab00-1a1977ff0a19/_ds_bundle.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Figtree:wght@400;500;600&display=swap">
+<style>:root{--font-heading:"Bricolage Grotesque",system-ui,sans-serif;--font-body:"Figtree",system-ui,sans-serif}body{margin:0}a{color:var(--color-accent)}a:hover{color:var(--color-accent-400)}input[type=range]{accent-color:var(--color-accent)}</style>
+</helmet>
+<div style="width:390px;height:844px;border-radius:46px;overflow:hidden;background:var(--color-bg);box-shadow:var(--shadow-md);display:flex;flex-direction:column;position:relative;font-family:var(--font-body);color:var(--color-text)">
+  <div style="height:46px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:14px;font-weight:600">
+    <span>9:41</span>
+    <div style="display:flex;gap:6px;align-items:center;font-size:15px"><i class="ph-fill ph-cell-signal-full"></i><i class="ph-fill ph-wifi-high"></i><i class="ph-fill ph-battery-full"></i></div>
+  </div>
+
+  <div ref="{{ scrollRef }}" style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none">
+
+    <sc-if value="{{ isTab }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 18px 4px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="width:26px;height:26px;border-radius:8px;border:1px solid var(--color-accent);display:grid;place-items:center;color:var(--color-accent);font-size:13px;font-weight:600">C</div>
+          <span style="font-size:15px;font-weight:500">ClaraInvests</span>
+        </div>
+        <button onClick="{{ goAlerts }}" class="btn btn-icon btn-secondary" style="position:relative;border-radius:50%" aria-label="Alertas"><i class="ph ph-bell" style="font-size:19px"></i>
+          <sc-if value="{{ hasUnread }}"><span style="position:absolute;top:-2px;right:-2px;min-width:17px;height:17px;border-radius:9px;background:var(--color-accent);color:var(--color-bg);font-size:10px;font-weight:600;display:grid;place-items:center">{{ unread }}</span></sc-if>
+        </button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isOverlay }}">
+      <div style="display:flex;align-items:center;gap:6px;padding:6px 10px 4px">
+        <button onClick="{{ back }}" class="btn btn-icon btn-ghost" aria-label="Voltar"><i class="ph ph-caret-left" style="font-size:20px"></i></button>
+        <span style="font-size:15px;font-weight:500">{{ overlayTitle }}</span>
+      </div>
+    </sc-if>
+
+    <!-- HOME A: weekly digest -->
+    <sc-if value="{{ homeA }}" hint-placeholder-val="{{ true }}">
+      <div style="padding:10px 18px 24px;display:flex;flex-direction:column;gap:22px">
+        <div>
+          <div style="font-size:12px;color:var(--color-neutral-400)">Semana 46 · 9–15 nov</div>
+          <h2 style="font-size:28px;margin:2px 0 0">O teu resumo</h2>
+        </div>
+        <div onClick="{{ openTop }}" style="cursor:pointer;padding:18px;border-radius:var(--radius-lg);background:linear-gradient(160deg,var(--color-accent-900),var(--color-surface) 70%);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:6px">
+          <div class="card-kicker">Melhor taxa sem condições</div>
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-size:52px;font-weight:500;letter-spacing:-0.03em;font-family:var(--font-heading);line-height:1">4,00%</span>
+            <span style="font-size:14px;color:var(--color-accent-300)">2,88% líquido</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">
+            <span>Trade Republic · novos clientes até €20.000</span><i class="ph ph-arrow-right" style="color:var(--color-accent)"></i>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="card elev-sm" style="gap:2px"><span style="font-size:11px;color:var(--color-neutral-400)">Taxa de depósito BCE</span><span style="font-size:22px;font-weight:500">2,50%</span><span style="font-size:11px;color:var(--color-neutral-400)">desde 16 set</span></div>
+          <div class="card elev-sm" style="gap:2px"><span style="font-size:11px;color:var(--color-neutral-400)">Inflação Portugal</span><span style="font-size:22px;font-weight:500">3,8%</span><span style="font-size:11px;color:var(--color-neutral-400)">out 2026</span></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h6 style="margin:0;color:var(--color-neutral-400)">Bate a inflação depois de impostos?</h6>
+          <div class="card elev-sm" style="padding:16px 14px 12px;gap:12px">
+            <div style="position:relative;height:44px">
+              <div style="position:absolute;left:0;right:0;top:20px;height:4px;border-radius:2px;background:var(--color-neutral-800)"></div>
+              <div style="position:absolute;left:95%;right:0;top:20px;height:4px;border-radius:0 2px 2px 0;background:var(--color-accent-700)"></div>
+              <div style="position:absolute;left:95%;top:0;bottom:0;width:1px;background:var(--color-accent-300)"></div>
+              <div style="position:absolute;left:95%;top:-2px;transform:translateX(-92%);font-size:10px;color:var(--color-accent-300);white-space:nowrap;background:var(--color-surface);padding:0 3px">inflação 3,8%</div>
+              <sc-for list="{{ netDots }}" as="d" hint-placeholder-count="10">
+                <div title="{{ d.name }}" style="position:absolute;top:16px;left:{{ d.left }};width:12px;height:12px;margin-left:-6px;border-radius:50%;border:2px solid var(--color-surface);background:{{ d.color }}"></div>
+              </sc-for>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--color-neutral-500)"><span>0%</span><span>1%</span><span>2%</span><span>3%</span><span>4%</span></div>
+            <p style="margin:0;font-size:13px">Nenhuma das {{ count }} contas que seguimos bate a inflação de 3,8% depois de impostos. A mais perto é a <b style="font-weight:600">Bankinter com ordenado</b> (3,60% líquido).</p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><h6 style="margin:0;color:var(--color-neutral-400)">Ganha dinheiro a abrir conta</h6><button class="btn btn-ghost" onClick="{{ goPromos }}" style="font-size:12px">Ver todas</button></div>
+          <div style="display:flex;gap:10px;overflow-x:auto;margin:0 -18px;padding:0 18px 4px;scrollbar-width:none">
+            <sc-for list="{{ promoCards }}" as="p" hint-placeholder-count="3">
+              <div onClick="{{ p.open }}" style="flex:none;width:168px;cursor:pointer;padding:14px;border-radius:var(--radius-md);background:var(--color-surface);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:6px;opacity:{{ p.opacity }}">
+                <span style="font-size:12px;color:var(--color-neutral-300)">{{ p.name }}</span>
+                <span style="font-size:26px;font-weight:500;letter-spacing:-0.02em;font-family:var(--font-heading);line-height:1.1">{{ p.rate }}</span>
+                <span style="font-size:11px;color:var(--color-neutral-400);min-height:30px">{{ p.dur }}</span>
+                <span style="font-size:13px;color:var(--color-accent-300)">{{ p.estShort }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <h6 style="margin:0 0 4px;color:var(--color-neutral-400)">O que mudou</h6>
+          <sc-for list="{{ changes }}" as="c" hint-placeholder-count="4">
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:8px 0">
+              <div style="width:34px;height:34px;flex:none;border-radius:10px;background:var(--color-accent-900);color:var(--color-accent-300);display:grid;place-items:center"><i class="ph {{ c.icon }}" style="font-size:17px"></i></div>
+              <div style="display:flex;flex-direction:column;gap:1px"><span style="font-size:14px;font-weight:500">{{ c.title }}</span><span style="font-size:13px;color:var(--color-neutral-300);text-wrap:pretty">{{ c.body }}</span></div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <h6 style="margin:0 0 4px;color:var(--color-neutral-400)">A seguir</h6>
+          <sc-for list="{{ watchRows }}" as="w" hint-placeholder-count="3">
+            <div onClick="{{ w.open }}" style="cursor:pointer;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-md);background:var(--color-surface)">
+              <div style="width:34px;height:34px;flex:none;border-radius:9px;background:var(--color-neutral-800);display:grid;place-items:center;font-size:12px;font-weight:600;color:var(--color-neutral-200)">{{ w.mono }}</div>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font-size:14px">{{ w.name }}</span><span style="font-size:11px;color:var(--color-neutral-400)">{{ w.product }}</span></div>
+              <div style="text-align:right;display:flex;flex-direction:column"><span style="font-size:15px;font-weight:500">{{ w.gross }}</span><span style="font-size:11px;color:var(--color-accent-300)">{{ w.net }} líq.</span></div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ noWatch }}"><p style="font-size:13px;color:var(--color-neutral-400);margin:0">Ainda não segues nenhuma instituição. Abre uma em Taxas e toca em Seguir.</p></sc-if>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+          <button onClick="{{ goCerts }}" class="btn btn-secondary" style="flex-direction:column;gap:6px;padding:14px 6px;font-size:12px"><i class="ph ph-shield-check" style="font-size:22px;color:var(--color-accent)"></i>Certificados</button>
+          <button onClick="{{ goJovem }}" class="btn btn-secondary" style="flex-direction:column;gap:6px;padding:14px 6px;font-size:12px"><i class="ph ph-student" style="font-size:22px;color:var(--color-accent)"></i>Menos de 35</button>
+          <button onClick="{{ goCalc }}" class="btn btn-secondary" style="flex-direction:column;gap:6px;padding:14px 6px;font-size:12px"><i class="ph ph-calculator" style="font-size:22px;color:var(--color-accent)"></i>Simular</button>
+        </div>
+        <p style="font-size:11px;color:var(--color-neutral-500);margin:0">Dados atualizados a 13 nov 2026. Informativo, não é aconselhamento financeiro. Confirma sempre com a instituição.</p>
+      </div>
+    </sc-if>
+
+    <!-- HOME B: dumbbell chart -->
+    <sc-if value="{{ homeB }}">
+      <div style="padding:10px 18px 24px;display:flex;flex-direction:column;gap:18px">
+        <div>
+          <div style="font-size:12px;color:var(--color-neutral-400)">Semana 46 · 9–15 nov</div>
+          <h2 style="font-size:28px;margin:2px 0 0">Quanto rende o teu dinheiro</h2>
+        </div>
+        <div style="display:flex;gap:14px;font-size:11px;color:var(--color-neutral-300);flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:5px"><span style="width:9px;height:9px;border-radius:50%;background:var(--color-accent)"></span>Bruto</span>
+          <span style="display:flex;align-items:center;gap:5px"><span style="width:9px;height:9px;border-radius:50%;border:2px solid var(--color-accent-300)"></span>Líquido (−28%)</span>
+          <span style="display:flex;align-items:center;gap:5px"><span style="width:1px;height:11px;background:var(--color-accent-300)"></span>Inflação 3,8%</span>
+        </div>
+        <div style="position:relative;display:flex;flex-direction:column">
+          <div style="position:absolute;top:0;bottom:22px;left:calc(110px + (100% - 150px) * 0.6909);width:1px;background:var(--color-accent-300);opacity:.7"></div>
+          <div style="position:absolute;top:0;bottom:22px;left:calc(110px + (100% - 150px) * 0.4545);width:1px;border-left:1px dashed var(--color-neutral-600)"></div>
+          <sc-for list="{{ dumbbells }}" as="r" hint-placeholder-count="12">
+            <div onClick="{{ r.open }}" style="cursor:pointer;display:flex;align-items:center;height:34px">
+              <span style="width:110px;flex:none;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:8px">{{ r.name }}</span>
+              <div style="flex:1;position:relative;height:100%;margin-right:40px">
+                <div style="position:absolute;top:50%;height:2px;margin-top:-1px;left:{{ r.nl }};width:{{ r.span }};background:var(--color-accent-700)"></div>
+                <div style="position:absolute;top:50%;left:{{ r.nl }};width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;border:2px solid var(--color-accent-300);background:var(--color-bg)"></div>
+                <div style="position:absolute;top:50%;left:{{ r.gl }};width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--color-accent)"></div>
+                <span style="position:absolute;top:50%;left:{{ r.gl }};transform:translate(10px,-50%);font-size:11px;color:var(--color-neutral-200)">{{ r.gross }}</span>
+              </div>
+            </div>
+          </sc-for>
+          <div style="display:flex;padding-left:110px;padding-right:40px;justify-content:space-between;font-size:10px;color:var(--color-neutral-500);height:22px;align-items:end"><span>0%</span><span>BCE 2,5%</span><span>5,5%</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div class="card elev-sm" style="gap:0;padding:10px"><span style="font-size:20px;font-weight:500">0 / {{ count }}</span><span style="font-size:11px;color:var(--color-neutral-400)">batem a inflação líquidas</span></div>
+          <div onClick="{{ goPromos }}" class="card elev-sm" style="cursor:pointer;gap:0;padding:10px"><span style="font-size:20px;font-weight:500">{{ promoCount }}</span><span style="font-size:11px;color:var(--color-neutral-400)">promos para abrir conta</span></div>
+          <div onClick="{{ goAlerts }}" class="card elev-sm" style="cursor:pointer;gap:0;padding:10px"><span style="font-size:20px;font-weight:500">{{ unread }}</span><span style="font-size:11px;color:var(--color-neutral-400)">alertas novos</span></div>
+        </div>
+        <p style="font-size:11px;color:var(--color-neutral-500);margin:0">Toca numa linha para ver condições. Dados de 13 nov 2026.</p>
+      </div>
+    </sc-if>
+
+    <!-- HOME C: story cards -->
+    <sc-if value="{{ homeC }}">
+      <div style="padding:10px 18px 24px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline">
+          <h2 style="font-size:28px;margin:0">Esta semana</h2>
+          <span style="font-size:12px;color:var(--color-neutral-400)">{{ cardPos }}</span>
+        </div>
+        <div style="display:flex;gap:5px">
+          <sc-for list="{{ cardDots }}" as="dot" hint-placeholder-count="4"><div onClick="{{ dot.go }}" style="cursor:pointer;flex:1;height:3px;border-radius:2px;background:{{ dot.color }}"></div></sc-for>
+        </div>
+        <div style="height:400px;border-radius:22px;padding:24px;display:flex;flex-direction:column;background:radial-gradient(120% 80% at 0% 0%,var(--color-section-glow),var(--color-section) 55%,var(--color-bg));box-shadow:var(--shadow-sm);position:relative;overflow:hidden">
+          <div style="position:absolute;right:-40px;bottom:-40px;font-size:220px;color:var(--color-section-ghost);opacity:.35;line-height:1"><i class="ph {{ card.icon }}"></i></div>
+          <div class="card-kicker" style="color:var(--color-accent-300)">{{ card.kicker }}</div>
+          <div style="font-size:64px;font-weight:500;letter-spacing:-0.04em;font-family:var(--font-heading);line-height:1;margin-top:auto">{{ card.big }}</div>
+          <div style="font-size:18px;margin-top:10px;text-wrap:pretty;position:relative">{{ card.title }}</div>
+          <div style="font-size:13px;color:var(--color-neutral-300);margin-top:6px;text-wrap:pretty;position:relative">{{ card.sub }}</div>
+          <div style="display:flex;gap:8px;margin-top:20px;position:relative">
+            <button onClick="{{ card.act }}" class="btn btn-primary" style="background:var(--color-bg)">{{ card.cta }}</button>
+            <div style="flex:1"></div>
+            <button onClick="{{ prevCard }}" class="btn btn-icon btn-secondary" aria-label="Anterior"><i class="ph ph-caret-left"></i></button>
+            <button onClick="{{ nextCard }}" class="btn btn-icon btn-secondary" aria-label="Seguinte"><i class="ph ph-caret-right"></i></button>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div onClick="{{ goRates }}" class="card elev-sm" style="cursor:pointer;padding:14px"><i class="ph ph-chart-bar-horizontal" style="font-size:22px;color:var(--color-accent)"></i><span style="font-size:14px">Ranking de taxas</span></div>
+          <div onClick="{{ goPromos }}" class="card elev-sm" style="cursor:pointer;padding:14px"><i class="ph ph-gift" style="font-size:22px;color:var(--color-accent)"></i><span style="font-size:14px">Promos de abertura</span></div>
+          <div onClick="{{ goCerts }}" class="card elev-sm" style="cursor:pointer;padding:14px"><i class="ph ph-shield-check" style="font-size:22px;color:var(--color-accent)"></i><span style="font-size:14px">Certificados do Estado</span></div>
+          <div onClick="{{ goCalc }}" class="card elev-sm" style="cursor:pointer;padding:14px"><i class="ph ph-calculator" style="font-size:22px;color:var(--color-accent)"></i><span style="font-size:14px">Simular ganhos</span></div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- RATES -->
+    <sc-if value="{{ sRates }}">
+      <div style="padding:10px 18px 24px;display:flex;flex-direction:column;gap:14px">
+        <h2 style="font-size:28px;margin:0">Taxas</h2>
+        <div style="display:flex;gap:6px;overflow-x:auto;margin:0 -18px;padding:0 18px;scrollbar-width:none">
+          <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+            <button onClick="{{ f.pick }}" class="btn" style="flex:none;white-space:nowrap;border-radius:20px;font-size:12px;padding:6px 12px;border-color:{{ f.border }};color:{{ f.color }};background:{{ f.bg }}">{{ f.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:14px;font-size:11px;color:var(--color-neutral-300)">
+          <span style="display:flex;align-items:center;gap:5px"><span style="width:12px;height:6px;border-radius:2px;background:var(--color-accent)"></span>Líquido</span>
+          <span style="display:flex;align-items:center;gap:5px"><span style="width:12px;height:6px;border-radius:2px;background:var(--color-accent-800)"></span>Imposto</span>
+          <span style="display:flex;align-items:center;gap:5px"><span style="width:1px;height:10px;background:var(--color-accent-300)"></span>Inflação</span>
+          <span style="display:flex;align-items:center;gap:5px"><span style="width:1px;height:10px;border-left:1px dashed var(--color-neutral-500)"></span>BCE</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <sc-for list="{{ rateRows }}" as="r" hint-placeholder-count="8">
+            <div onClick="{{ r.open }}" style="cursor:pointer;padding:12px;border-radius:var(--radius-md);background:var(--color-surface);display:flex;flex-direction:column;gap:9px;opacity:{{ r.opacity }}">
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:34px;height:34px;flex:none;border-radius:9px;background:var(--color-neutral-800);display:grid;place-items:center;font-size:12px;font-weight:600;color:var(--color-neutral-200)">{{ r.mono }}</div>
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+                  <span style="font-size:14px;display:flex;gap:6px;align-items:center">{{ r.name }}<sc-if value="{{ r.hasTag }}"><span class="tag tag-accent" style="font-size:10px;padding:1px 6px">{{ r.tag }}</span></sc-if></span>
+                  <span style="font-size:11px;color:var(--color-neutral-400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.product }}</span>
+                </div>
+                <div style="display:grid;grid-template-columns:auto auto;gap:0 10px;text-align:right">
+                  <span style="font-size:10px;color:var(--color-neutral-500)">bruto</span><span style="font-size:10px;color:var(--color-neutral-500)">líquido</span>
+                  <span style="font-size:15px;font-weight:500">{{ r.gross }}</span><span style="font-size:15px;color:var(--color-accent-300)">{{ r.net }}</span>
+                </div>
+              </div>
+              <div style="position:relative;height:6px;border-radius:3px;background:var(--color-neutral-900)">
+                <div style="position:absolute;left:0;top:0;bottom:0;width:{{ r.gw }};border-radius:3px;background:var(--color-accent-800)"></div>
+                <div style="position:absolute;left:0;top:0;bottom:0;width:{{ r.nw }};border-radius:3px;background:var(--color-accent)"></div>
+                <div style="position:absolute;left:69.09%;top:-3px;bottom:-3px;width:1px;background:var(--color-accent-300)"></div>
+                <div style="position:absolute;left:45.45%;top:-3px;bottom:-3px;border-left:1px dashed var(--color-neutral-500)"></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <p style="font-size:11px;color:var(--color-neutral-500);margin:0">Taxa mais alta disponível. Líquido com retenção de {{ taxLabel }}. Escala 0–5,5%.</p>
+      </div>
+    </sc-if>
+
+    <!-- CALC -->
+    <sc-if value="{{ sCalc }}">
+      <div style="padding:10px 18px 24px;display:flex;flex-direction:column;gap:18px">
+        <h2 style="font-size:28px;margin:0">Simular ganhos</h2>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:12px;color:var(--color-neutral-400)">Quanto queres pôr</span><span style="font-size:24px;font-weight:500">{{ amountLabel }}</span></div>
+          <input type="range" min="500" max="60000" step="500" value="{{ amount }}" onChange="{{ setAmount }}" style="width:100%">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:12px;color:var(--color-neutral-400)">Durante</span>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--color-divider);border-radius:var(--radius-md);overflow:hidden">
+            <sc-for list="{{ monthOpts }}" as="m" hint-placeholder-count="4">
+              <button onClick="{{ m.pick }}" style="font:inherit;font-size:13px;padding:8px 0;border:0;cursor:pointer;color:{{ m.color }};background:{{ m.bg }};box-shadow:{{ m.ring }}">{{ m.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:12px;color:var(--color-neutral-400)">Onde</span>
+          <div style="display:flex;gap:6px;overflow-x:auto;margin:0 -18px;padding:0 18px;scrollbar-width:none">
+            <sc-for list="{{ calcChips }}" as="c" hint-placeholder-count="6">
+              <button onClick="{{ c.pick }}" class="btn" style="flex:none;white-space:nowrap;border-radius:20px;font-size:12px;padding:6px 12px;border-color:{{ c.border }};color:{{ c.color }};background:{{ c.bg }}">{{ c.name }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <sc-for list="{{ toggles }}" as="t" hint-placeholder-count="2">
+            <div onClick="{{ t.flip }}" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:8px 0">
+              <span style="font-size:14px">{{ t.label }}</span>
+              <div style="width:40px;height:24px;border-radius:12px;padding:3px;background:{{ t.bg }};border:1px solid {{ t.border }};transition:background .2s"><div style="width:16px;height:16px;border-radius:50%;background:{{ t.knob }};transform:translateX({{ t.x }});transition:transform .2s"></div></div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="padding:18px;border-radius:var(--radius-lg);background:linear-gradient(160deg,var(--color-accent-900),var(--color-surface) 70%);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:12px">
+          <div class="card-kicker">{{ calc.name }} · {{ monthsLabel }}</div>
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:46px;font-weight:500;letter-spacing:-0.03em;font-family:var(--font-heading);line-height:1">{{ calc.net }}</span><span style="font-size:13px;color:var(--color-accent-300)">líquidos</span></div>
+          <div style="display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--color-neutral-900)">
+            <div style="width:{{ calc.netShare }};background:var(--color-accent)"></div>
+            <div style="flex:1;background:var(--color-accent-800)"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;font-size:11px;color:var(--color-neutral-400)">
+            <div style="display:flex;flex-direction:column"><span>Bruto</span><span style="font-size:15px;color:var(--color-text)">{{ calc.gross }}</span></div>
+            <div style="display:flex;flex-direction:column"><span>Imposto</span><span style="font-size:15px;color:var(--color-text)">{{ calc.tax }}</span></div>
+            <div style="display:flex;flex-direction:column"><span>vs inflação</span><span style="font-size:15px;color:var(--color-text)">{{ calc.real }}</span></div>
+          </div>
+          <p style="margin:0;font-size:12px;color:var(--color-neutral-300);text-wrap:pretty">{{ calc.note }}</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <h6 style="margin:0;color:var(--color-neutral-400)">Com {{ amountLabel }}, onde rende mais</h6>
+          <sc-for list="{{ compare }}" as="c" hint-placeholder-count="6">
+            <div onClick="{{ c.pick }}" style="cursor:pointer;display:flex;align-items:center;gap:10px">
+              <span style="width:96px;flex:none;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:{{ c.color }}">{{ c.name }}</span>
+              <div style="flex:1;height:18px;border-radius:4px;background:var(--color-neutral-900);overflow:hidden"><div style="height:100%;width:{{ c.w }};border-radius:4px;background:{{ c.bar }}"></div></div>
+              <span style="width:58px;text-align:right;font-size:12px">{{ c.net }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <p style="font-size:11px;color:var(--color-neutral-500);margin:0">Estimativa com juros simples, limites e durações de promo de cada conta. Sem domiciliação, a Bankinter usa a Conta Digital. Depósitos a prazo assumem o prazo mais próximo.</p>
+      </div>
+    </sc-if>
+
+    <!-- JOVEM -->
+    <sc-if value="{{ sJovem }}">
+      <div style="padding:10px 18px 24px;display:flex;flex-direction:column;gap:14px">
+        <div>
+          <h2 style="font-size:28px;margin:0">Menos de 35</h2>
+          <p style="margin:4px 0 0;font-size:13px;color:var(--color-neutral-300)">Benefícios do Estado para jovens em Portugal.</p>
+        </div>
+        <div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none">
+          <sc-for list="{{ perkCats }}" as="f" hint-placeholder-count="4">
+            <button onClick="{{ f.pick }}" class="btn" style="flex:none;white-space:nowrap;border-radius:20px;font-size:12px;padding:6px 12px;border-color:{{ f.border }};color:{{ f.color }};background:{{ f.bg }}">{{ f.label }}</button>
+          </sc-for>
+        </div>
+        <sc-for list="{{ perks }}" as="p" hint-placeholder-count="5">
+          <div style="border-radius:var(--radius-md);background:var(--color-surface);box-shadow:{{ p.shadow }};overflow:hidden">
+            <div onClick="{{ p.toggle }}" style="cursor:pointer;display:flex;gap:12px;align-items:center;padding:14px">
+              <div style="width:40px;height:40px;flex:none;border-radius:12px;background:var(--color-accent-900);color:var(--color-accent-300);display:grid;place-items:center"><i class="ph {{ p.icon }}" style="font-size:20px"></i></div>
+              <div style="flex:1;display:flex;flex-direction:column"><span style="font-size:15px;font-weight:500">{{ p.title }}</span><span style="font-size:12px;color:var(--color-neutral-400)">{{ p.sub }}</span></div>
+              <i class="ph {{ p.caret }}" style="color:var(--color-neutral-400)"></i>
+            </div>
+            <sc-if value="{{ p.open }}">
+              <div style="padding:0 14px 14px;display:flex;flex-direction:column;gap:12px">
+                <sc-if value="{{ p.hasChart }}">
+                  <div style="display:flex;flex-direction:column;gap:4px">
+                    <div style="display:flex;align-items:flex-end;gap:4px;height:70px">
+                      <sc-for list="{{ irsBars }}" as="b" hint-placeholder-count="10"><div style="flex:1;height:{{ b.h }};border-radius:3px 3px 0 0;background:var(--color-accent);opacity:{{ b.o }}"></div></sc-for>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--color-neutral-500)"><span>Ano 1 · 100%</span><span>2–4 · 75%</span><span>5–7 · 50%</span><span>8–10 · 25%</span></div>
+                  </div>
+                </sc-if>
+                <p style="margin:0;font-size:13px;line-height:1.5;color:var(--color-neutral-200);text-wrap:pretty">{{ p.body }}</p>
+                <sc-if value="{{ p.hasLink }}"><button onClick="{{ p.link }}" class="btn btn-primary" style="align-self:flex-start">{{ p.linkLabel }}</button></sc-if>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+        <p style="font-size:11px;color:var(--color-neutral-500);margin:0">Regras resumidas. Confirma limites e prazos em vigor no Portal das Finanças e no Portal da Habitação.</p>
+      </div>
+    </sc-if>
+
+    <!-- LEARN -->
+    <sc-if value="{{ sLearn }}">
+      <div style="padding:10px 18px 24px;display:flex;flex-direction:column;gap:20px">
+        <h2 style="font-size:28px;margin:0">Aprender</h2>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h6 style="margin:0;color:var(--color-neutral-400)">Escada de risco baixo</h6>
+          <sc-for list="{{ ladder }}" as="l" hint-placeholder-count="7">
+            <div style="display:flex;gap:12px;align-items:center">
+              <span style="width:18px;font-size:12px;color:var(--color-neutral-500)">{{ l.n }}</span>
+              <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+                <div style="display:flex;justify-content:space-between;gap:8px"><span style="font-size:14px">{{ l.name }}</span><span style="font-size:11px;color:var(--color-neutral-400);text-align:right">{{ l.note }}</span></div>
+                <div style="height:4px;border-radius:2px;background:var(--color-neutral-900)"><div style="height:100%;width:{{ l.w }};border-radius:2px;background:var(--color-accent)"></div></div>
+              </div>
+            </div>
+          </sc-for>
+          <span style="font-size:11px;color:var(--color-neutral-500)">A barra mostra o risco relativo e a menor liquidez.</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <h6 style="margin:0 0 6px;color:var(--color-neutral-400)">Glossário</h6>
+          <sc-for list="{{ gloss }}" as="g" hint-placeholder-count="8">
+            <div onClick="{{ g.toggle }}" style="cursor:pointer;padding:12px 14px;border-radius:var(--radius-md);background:var(--color-surface);display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:14px;font-weight:500">{{ g.term }}</span><i class="ph {{ g.caret }}" style="color:var(--color-neutral-400)"></i></div>
+              <sc-if value="{{ g.open }}"><p style="margin:0;font-size:13px;color:var(--color-neutral-300);text-wrap:pretty">{{ g.def }}</p></sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ALERTS -->
+    <sc-if value="{{ sAlerts }}">
+      <div style="padding:4px 18px 24px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><h2 style="font-size:28px;margin:0">Alertas</h2><button onClick="{{ readAll }}" class="btn btn-ghost" style="font-size:12px;white-space:nowrap">Marcar como lidos</button></div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <sc-for list="{{ alerts }}" as="a" hint-placeholder-count="5">
+            <div onClick="{{ a.open }}" style="cursor:pointer;display:flex;gap:12px;padding:12px;border-radius:var(--radius-md);background:{{ a.bg }};box-shadow:{{ a.shadow }}">
+              <div style="width:34px;height:34px;flex:none;border-radius:10px;background:var(--color-accent-900);color:var(--color-accent-300);display:grid;place-items:center"><i class="ph {{ a.icon }}" style="font-size:17px"></i></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;justify-content:space-between;gap:8px"><span style="font-size:14px;font-weight:500">{{ a.title }}</span><span style="font-size:11px;color:var(--color-neutral-500);white-space:nowrap">{{ a.when }}</span></div>
+                <span style="font-size:13px;color:var(--color-neutral-300);text-wrap:pretty">{{ a.body }}</span>
+              </div>
+              <sc-if value="{{ a.unread }}"><span style="width:7px;height:7px;flex:none;margin-top:6px;border-radius:50%;background:var(--color-accent)"></span></sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <h6 style="margin:0 0 6px;color:var(--color-neutral-400)">Avisar-me quando</h6>
+          <sc-for list="{{ notifyRows }}" as="t" hint-placeholder-count="4">
+            <div onClick="{{ t.flip }}" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:9px 0;gap:12px">
+              <div style="display:flex;flex-direction:column"><span style="font-size:14px">{{ t.label }}</span><span style="font-size:11px;color:var(--color-neutral-400)">{{ t.sub }}</span></div>
+              <div style="width:40px;height:24px;flex:none;border-radius:12px;padding:3px;background:{{ t.bg }};border:1px solid {{ t.border }}"><div style="width:16px;height:16px;border-radius:50%;background:{{ t.knob }};transform:translateX({{ t.x }});transition:transform .2s"></div></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- PROMOS -->
+    <sc-if value="{{ sPromos }}">
+      <div style="padding:4px 18px 24px;display:flex;flex-direction:column;gap:14px">
+        <div>
+          <h2 style="font-size:28px;margin:0">Ganhar a abrir conta</h2>
+          <p style="margin:4px 0 0;font-size:13px;color:var(--color-neutral-300)">Taxas promocionais para novos clientes. Estimativa líquida com €10.000.</p>
+        </div>
+        <sc-for list="{{ promoCards }}" as="p" hint-placeholder-count="5">
+          <div onClick="{{ p.open }}" style="cursor:pointer;padding:16px;border-radius:var(--radius-md);background:var(--color-surface);box-shadow:var(--shadow-sm);display:flex;gap:14px;align-items:center;opacity:{{ p.opacity }}">
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+              <span style="font-size:12px;color:var(--color-neutral-400)">{{ p.name }}</span>
+              <span style="font-size:15px;font-weight:500">{{ p.title }}</span>
+              <span style="font-size:12px;color:var(--color-neutral-300)">{{ p.dur }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
+              <span style="font-size:24px;font-weight:500;letter-spacing:-0.02em;font-family:var(--font-heading)">{{ p.rate }}</span>
+              <span class="tag tag-accent">{{ p.estShort }}</span>
+            </div>
+          </div>
+        </sc-for>
+        <p style="font-size:11px;color:var(--color-neutral-500);margin:0">Promos têm limites de saldo e prazo. Confirma no site da instituição antes de abrir conta.</p>
+      </div>
+    </sc-if>
+
+    <!-- CERTS -->
+    <sc-if value="{{ sCerts }}">
+      <div style="padding:4px 18px 24px;display:flex;flex-direction:column;gap:16px">
+        <div>
+          <h2 style="font-size:28px;margin:0">Poupança do Estado</h2>
+          <p style="margin:4px 0 0;font-size:13px;color:var(--color-neutral-300)">Dívida pública vendida diretamente a aforradores pelo IGCP. Sem risco de banco.</p>
+        </div>
+        <div onClick="{{ openCaf }}" style="cursor:pointer;padding:18px;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span class="card-kicker">Certificados de Aforro · Série F</span><span class="tag tag-neutral">desde €5</span></div>
+          <div style="display:flex;align-items:baseline;gap:10px"><span style="font-size:44px;font-weight:500;letter-spacing:-0.03em;font-family:var(--font-heading);line-height:1">2,50%</span><span style="font-size:13px;color:var(--color-accent-300)">1,80% líquido</span></div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="height:8px;border-radius:4px;background:var(--color-neutral-900);position:relative"><div style="width:100%;height:100%;border-radius:4px;background:var(--color-accent)"></div><span style="position:absolute;right:0;top:12px;font-size:10px;color:var(--color-neutral-400)">teto 2,5%</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;font-size:11px;color:var(--color-neutral-400);margin-top:8px">
+            <div style="display:flex;flex-direction:column"><span>Indexado a</span><span style="font-size:13px;color:var(--color-text)">Euribor 3M</span></div>
+            <div style="display:flex;flex-direction:column"><span>Resgate</span><span style="font-size:13px;color:var(--color-text)">após 3 meses</span></div>
+            <div style="display:flex;flex-direction:column"><span>Onde</span><span style="font-size:13px;color:var(--color-text)">CTT, BiG</span></div>
+          </div>
+        </div>
+        <div onClick="{{ openCtp }}" style="cursor:pointer;padding:18px;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span class="card-kicker">Certificados do Tesouro · Série 5</span><span class="tag tag-neutral">desde €1.000</span></div>
+          <div style="display:flex;align-items:baseline;gap:10px"><span style="font-size:44px;font-weight:500;letter-spacing:-0.03em;font-family:var(--font-heading);line-height:1">2,35%</span><i class="ph ph-arrow-right" style="color:var(--color-neutral-400)"></i><span style="font-size:44px;font-weight:500;letter-spacing:-0.03em;font-family:var(--font-heading);line-height:1">3,35%</span></div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="position:relative;height:40px">
+              <svg viewBox="0 0 100 40" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 40 L0 26 L100 4 L100 40 Z" fill="var(--color-accent-800)"></path><path d="M0 26 L100 4" stroke="var(--color-accent)" stroke-width="1.5" vector-effect="non-scaling-stroke" fill="none"></path></svg>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--color-neutral-500)"><span>Ano 1</span><span>média ≈2,71%</span><span>Ano 10</span></div>
+          </div>
+          <span style="font-size:12px;color:var(--color-neutral-300)">Taxa fixa que sobe todos os anos. Cupão anual, sem capitalização. Lançado em jul 2026.</span>
+        </div>
+        <button onClick="{{ simCaf }}" class="btn btn-primary btn-block" style="padding:12px">Simular Certificados de Aforro</button>
+      </div>
+    </sc-if>
+
+    <!-- DETAIL -->
+    <sc-if value="{{ sDetail }}">
+      <div style="padding:4px 18px 24px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:52px;height:52px;flex:none;border-radius:14px;background:var(--color-neutral-800);display:grid;place-items:center;font-size:17px;font-weight:600;color:var(--color-neutral-100)">{{ d.mono }}</div>
+          <div style="flex:1;display:flex;flex-direction:column"><span style="font-size:22px;font-weight:500;line-height:1.15">{{ d.name }}</span><span style="font-size:12px;color:var(--color-neutral-400)">{{ d.kind }} · {{ d.product }}</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="padding:14px;border-radius:var(--radius-md);background:linear-gradient(160deg,var(--color-accent-900),var(--color-surface));box-shadow:var(--shadow-sm);display:flex;flex-direction:column"><span style="font-size:11px;color:var(--color-neutral-300)">Bruto (TANB)</span><span style="font-size:32px;font-weight:500;letter-spacing:-0.02em;font-family:var(--font-heading)">{{ d.gross }}</span></div>
+          <div style="padding:14px;border-radius:var(--radius-md);background:var(--color-surface);box-shadow:var(--shadow-sm);display:flex;flex-direction:column"><span style="font-size:11px;color:var(--color-neutral-300)">Líquido</span><span style="font-size:32px;font-weight:500;letter-spacing:-0.02em;font-family:var(--font-heading);color:var(--color-accent-300)">{{ d.net }}</span></div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button onClick="{{ d.toggleFollow }}" class="btn btn-primary" style="flex:1;padding:10px"><i class="{{ d.followIcon }}"></i>{{ d.followLabel }}</button>
+          <button onClick="{{ d.simulate }}" class="btn btn-secondary" style="flex:1;padding:10px"><i class="ph ph-calculator"></i>Simular</button>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ d.facts }}" as="f" hint-placeholder-count="4">
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--color-neutral-900)"><span style="font-size:13px;color:var(--color-neutral-400);flex:none">{{ f.k }}</span><span style="font-size:13px;text-align:right">{{ f.v }}</span></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <h6 style="margin:0;color:var(--color-neutral-400)">Condições</h6>
+          <sc-for list="{{ d.notes }}" as="n" hint-placeholder-count="3">
+            <div style="display:flex;gap:10px;font-size:13px;line-height:1.5"><i class="ph ph-dot-outline" style="color:var(--color-accent);margin-top:3px"></i><span style="text-wrap:pretty">{{ n }}</span></div>
+          </sc-for>
+        </div>
+        <p style="font-size:11px;color:var(--color-neutral-500);margin:0">Verificado a {{ d.checked }}. Confirma termos atuais no site da instituição.</p>
+      </div>
+    </sc-if>
+  </div>
+
+  <div style="flex:none;display:flex;justify-content:space-around;padding:8px 6px 26px;background:var(--color-bg);box-shadow:0 -1px 0 var(--color-neutral-900)">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+      <button onClick="{{ t.go }}" style="flex:1;background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 0;font:inherit;font-size:10px;color:{{ t.color }}"><i class="{{ t.cls }}" style="font-size:22px"></i>{{ t.label }}</button>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;homeVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;],&quot;default&quot;:&quot;a&quot;,&quot;tsType&quot;:&quot;'a'|'b'|'c'&quot;}}">
+const INF = 3.8, SCALE = 5.5;
+const pct = (n, d = 2) => n.toFixed(d).replace('.', ',') + '%';
+const eur = n => (n < 0 ? '−' : '') + '€' + String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+const P = [
+  { id:'tr', name:'Trade Republic', product:'Conta à ordem remunerada', kind:'Corretora', mono:'TR', best:4.00, rateText:'4,00% / 2,50%', cap:'€20.000 a 4% (novos clientes); 2,50% acima, sem limite', pay:'Diário, pago mensalmente', tax:'Retido na fonte (IBAN PT)', promo:true, tag:'Novos clientes', checked:'13 nov 2026',
+    notes:['Novos clientes desde 12 nov 2026: 4% TANB (4,07% TAE) até €20.000, até 1 mar 2027.','Acima de €20.000 e para clientes existentes: 2,50% (taxa de depósito do BCE).','Quem tinha a promo anterior de 3% passa para 2,50% a 27 nov 2026.','IBAN português (PT50); juros diários, pagos mensalmente, 28% retido na fonte.'] },
+  { id:'t212', name:'Trading 212', product:'Cash remunerado', kind:'Corretora', mono:'T2', best:2.50, rateText:'4,20% (terminou) / 2,50%', cap:'Promo para contas abertas 16 set – 2 nov 2026', pay:'Diário', tax:'Não retido — declarar no Anexo J', ended:true, tag:'Promo terminou',
+    notes:['4,20% durante 4 meses em contas novas abertas até 2 nov; 2,50% taxa padrão.','Entidade não portuguesa: os juros NÃO são retidos na fonte e têm de ser declarados (Anexo J).','Juros pagos diariamente.'] },
+  { id:'xtb', name:'XTB', product:'Juros sobre saldo não investido', kind:'Corretora', mono:'XT', best:4.50, rateText:'4,50% (90 dias) / 1,10%', cap:'€20.000 · contas abertas até 31 dez 2026', pay:'Diário, pago mensalmente', tax:'Retido na fonte', promo:true, tag:'90 dias', checked:'4 nov 2026',
+    notes:['Boas-vindas subiu de 2,60% para 4,50% nos primeiros 90 dias, até €20.000.','Depois desce para 1,10%, a taxa de quem já tem conta (antes era 1,70%).','Válido para contas abertas até 31 dez 2026.'] },
+  { id:'revolut', name:'Revolut', product:'Cofres remunerados', kind:'Neobanco', mono:'RV', best:2.25, rateText:'1,50%–2,25%', cap:'Até €100.000', pay:'Diário', tax:'Confirmar com a Revolut',
+    notes:['Por plano: Standard/Plus 1,50%, Premium 1,75%, Metal 2,00%, Ultra 2,25%.','A promo de 2,50% para todos os planos expirou a 20 jul 2026.','Depósitos cobertos pelo fundo de garantia de depósitos lituano.'] },
+  { id:'bankinter', name:'Bankinter', product:'Conta Mais Ordenado / Digital', kind:'Banco', mono:'BK', best:5.00, rateText:'5,00% → 2,00% / 3,00%', cap:'Reportados ≈€10k–100k — confirmar', pay:'Mensal', tax:'Retido na fonte', salary:true, promo:true, tag:'Com ordenado',
+    notes:['Conta Mais Ordenado: 5% no 1.º ano, 2% no 2.º; exige domiciliação de ordenado ou pensão.','Conta Digital: 3% durante 3 meses para novos clientes (campanha set 2026), depois 3% com domiciliação ou 2,5% sem.'] },
+  { id:'ctt', name:'Banco CTT', product:'Conta Poupança Livre', kind:'Banco', mono:'CT', best:3.00, rateText:'3,00% / 0,50%', cap:'€5.000', pay:'Trimestral', tax:'Retido na fonte', salary:true, tag:'Com ordenado',
+    notes:['3% exige domiciliação de ordenado (mín. €800/mês) ou 3 débitos diretos ativos; sem isso, 0,50%.','Movimentação livre, sem prazo.'] },
+  { id:'activo', name:'ActivoBank', product:'PoupeUp Premium', kind:'Banco', mono:'AB', best:2.25, rateText:'2,25%', cap:'Até €20.000', tax:'Retido na fonte', checked:'4 nov 2026 (taxa a confirmar)',
+    notes:['A campanha de 5% na Conta PoupeUp terminou em outubro.','PoupeUp Premium: 2,25% até €20.000 (valor de jul 2026, confirmar).','Conta gratuita, do grupo Millennium bcp.'] },
+  { id:'openbank', name:'Openbank', product:'Poupança Boas-vindas', kind:'Banco', mono:'OB', best:2.50, rateText:'2,50%', cap:'Até €500.000', tax:'Retido na fonte', promo:true, tag:'6 meses', checked:'nov 2026',
+    notes:['Exclusiva para novos clientes, válida nos primeiros 6 meses.','Também tem depósito a prazo de 6 meses a 2,50% para novos clientes.'] },
+  { id:'klarna', name:'Klarna', product:'Poupança a prazo fixo', kind:'Banco', mono:'KL', best:3.15, rateText:'2,15% (6m) · 2,95% (12m) · 3,15% (24m)', cap:'Desde €1', tax:'Confirmar com a Klarna', tag:'Prazo', term:true, checked:'2 nov 2026',
+    notes:['Taxa fixa garantida pelo prazo escolhido; o dinheiro fica preso até ao fim.','6 meses 2,15%, 12 meses 2,95%, 24 meses 3,15%.'] },
+  { id:'novobanco', name:'Novobanco', product:'DP Novos Recursos 12 meses', kind:'Banco', mono:'NB', best:3.00, rateText:'3,00%', cap:'€100 a €5.000 de dinheiro novo', tax:'Retido na fonte', tag:'Prazo', term:true, promo:true, checked:'2 nov 2026',
+    notes:['Depósito a prazo de 12 meses só para dinheiro novo no banco.','Montante entre €100 e €5.000.'] },
+  { id:'montepio', name:'Banco Montepio', product:'Poupança Super', kind:'Banco', mono:'MP', best:2.25, rateText:'1,75%–2,25%', cap:'Varia por escalão', tax:'Retido na fonte',
+    notes:['Estruturada em até 6 semestres; a taxa sobe por escalão atingido.','Saldos de conta à ordem rendem 0,00%.','Taxas do preçário de 14 set 2026.'] },
+  { id:'millennium', name:'Millennium bcp', product:"Poupança Aforro / Let's GO!", kind:'Banco', mono:'MB', best:1.75, rateText:'0,10%–0,20% / ≤1,75%', cap:'€25–€100.000', tax:'Retido na fonte',
+    notes:['Entre as taxas mais baixas dos grandes bancos portugueses.',"\"Let's GO!\" exige que o saldo cresça um valor definido em cada período.",'Prazo mínimo de 6 meses na Conta Poupança Aforro.'] },
+  { id:'big', name:'Banco BiG', product:'Conta BiG Aforro', kind:'Banco', mono:'BG', best:1.50, rateText:'1,00% / 1,50%', cap:'1 levantamento grátis/ano, até €100.000', pay:'Diário, pago trimestralmente', tax:'Retido na fonte',
+    notes:['1,00% base; sobe para 1,50% após 3 meses seguidos de reforços de €150+.','Levantamentos extra perdem os juros desse mês.'] },
+  { id:'caf', name:'Certificados de Aforro', product:'Série F', kind:'Estado', mono:'CA', best:2.50, rateText:'2,500%', cap:'Mínimo €5', pay:'Capitalizam', tax:'Retido na fonte', state:true, tag:'Estado',
+    notes:['Taxa variável, indexada mensalmente à Euribor a 3 meses, com teto de 2,5%.','Resgatável após 3 meses; os juros capitalizam.','Vendidos nos CTT e no Banco BiG.'] },
+  { id:'ctp', name:'Certificados do Tesouro', product:'Série 5', kind:'Estado', mono:'TS', best:3.35, rateText:'2,35% → 3,35%', cap:'Mínimo €1.000', pay:'Cupão anual', tax:'Retido na fonte', state:true, tag:'Estado',
+    notes:['Taxa fixa que sobe todos os anos, prazo de 10 anos (média ≈2,71%).','Sem capitalização: juros pagos em cupão anual.','Lançado em jul 2026, substitui a série CTPV.'] },
+];
+const byId = Object.fromEntries(P.map(p => [p.id, p]));
+function gross(id, A, m, sal) {
+  const y = m / 12, f = x => Math.min(m, x) / 12, r = x => Math.max(0, m - x) / 12;
+  switch (id) {
+    case 'tr': { const p = Math.min(m, 3.6) / 12; return Math.min(A, 20000) * (.04 * p + .025 * (y - p)) + Math.max(0, A - 20000) * .025 * y; }
+    case 't212': return A * .025 * y;
+    case 'xtb': return Math.min(A, 20000) * (.045 * f(3) + .011 * r(3)) + Math.max(0, A - 20000) * .011 * y;
+    case 'openbank': return A * .025 * f(6);
+    case 'klarna': return A * (m < 12 ? .0215 : m < 24 ? .0295 : .0315) * y;
+    case 'novobanco': return Math.min(A, 5000) * .03 * f(12);
+    case 'revolut': return Math.min(A, 100000) * .015 * y;
+    case 'bankinter': return sal ? A * (.05 * f(12) + .02 * (Math.min(m, 24) - Math.min(m, 12)) / 12) : A * (.03 * f(3) + .025 * r(3));
+    case 'ctt': return Math.min(A, 5000) * (sal ? .03 : .005) * y;
+    case 'activo': return Math.min(A, 20000) * .0225 * y;
+    case 'montepio': return A * .0175 * y;
+    case 'millennium': return A * .002 * y;
+    case 'big': return A * (.01 * f(3) + .015 * r(3));
+    case 'caf': return A * .025 * y;
+    case 'ctp': return A * .0235 * y;
+  }
+  return 0;
+}
+const ALERTS = [
+  { id:'a1', icon:'ph-rocket-launch', title:'Trade Republic sobe para 4%', body:'Novos clientes: 4% até €20.000, até 1 mar 2027. Acima disso e para clientes atuais, 2,50%.', when:'ontem', pid:'tr' },
+  { id:'a2', icon:'ph-trend-down', title:'Trade Republic: fim dos 3%', body:'Quem abriu conta com a promo de 3% passa para 2,50% a 27 nov.', when:'ontem', pid:'tr' },
+  { id:'a3', icon:'ph-gift', title:'XTB: boas-vindas a 4,50%', body:'Primeiros 90 dias, até €20.000. Depois desce para 1,10%. Contas abertas até 31 dez.', when:'4 nov', pid:'xtb' },
+  { id:'a4', icon:'ph-thermometer', title:'Inflação sobe para 3,8%', body:'Nenhuma conta que seguimos bate a inflação depois de impostos.', when:'4 nov', pid:'bankinter' },
+  { id:'a5', icon:'ph-x-circle', title:'ActivoBank', body:'Terminou a campanha de 5% na Conta PoupeUp.', when:'4 nov', pid:'activo' },
+  { id:'a6', icon:'ph-clock-counter-clockwise', title:'Trading 212', body:'A promo de 4,20% para contas novas terminou a 2 nov. Taxa padrão: 2,50%.', when:'2 nov', pid:'t212' },
+];
+const PROMOS = [
+  { pid:'bankinter', title:'Conta Mais Ordenado', rate:'5,00%', dur:'1.º ano, com domiciliação de ordenado', m:12, sal:true },
+  { pid:'xtb', title:'Boas-vindas', rate:'4,50%', dur:'90 dias, até €20.000 · abrir até 31 dez', m:3 },
+  { pid:'tr', title:'Conta remunerada', rate:'4,00%', dur:'Até €20.000, até 1 mar 2027', m:3.6 },
+  { pid:'novobanco', title:'DP Novos Recursos', rate:'3,00%', dur:'Prazo de 12 meses, até €5.000', m:12 },
+  { pid:'openbank', title:'Poupança Boas-vindas', rate:'2,50%', dur:'Primeiros 6 meses', m:6 },
+  { pid:'t212', title:'Cash remunerado', rate:'4,20%', dur:'Terminou a 2 nov 2026', ended:true },
+  { pid:'activo', title:'Conta PoupeUp', rate:'5,00%', dur:'Campanha terminou em outubro', ended:true },
+];
+const PERKS = [
+  { id:'irs', cat:'Impostos', icon:'ph-receipt', title:'IRS Jovem', sub:'Até 35 anos · 10 anos de benefício', chart:true,
+    body:'Isenção parcial do IRS sobre rendimentos do trabalho nos primeiros 10 anos de atividade: 100% no 1.º ano, 75% do 2.º ao 4.º, 50% do 5.º ao 7.º e 25% do 8.º ao 10.º. Limite anual de 55 × IAS.' },
+  { id:'gar', cat:'Casa', icon:'ph-house-line', title:'Garantia pública na 1.ª casa', sub:'18–35 anos · até 100% financiado',
+    body:'O Estado garante até 15% do valor do imóvel, para que o banco possa financiar até 100%. Para habitação própria permanente até €450.000.' },
+  { id:'imt', cat:'Casa', icon:'ph-stamp', title:'Isenção de IMT e Imposto do Selo', sub:'Até 35 anos · 1.ª habitação',
+    body:'Na compra da primeira habitação própria permanente, isenção total de IMT e Imposto do Selo até ao 4.º escalão do IMT, e parcial acima disso.' },
+  { id:'p65', cat:'Casa', icon:'ph-key', title:'Porta 65 Jovem', sub:'Apoio ao arrendamento',
+    body:'Comparticipação mensal na renda para jovens até 35 anos. Candidaturas no Portal da Habitação.' },
+  { id:'ppr', cat:'Poupança', icon:'ph-piggy-bank', title:'Dedução PPR', sub:'Até €400/ano no IRS',
+    body:'Com menos de 35 anos, 20% do valor aplicado num PPR é deduzido à coleta, até €400 por ano. Há PPR de perfil conservador, com risco baixo.' },
+  { id:'caf', cat:'Poupança', icon:'ph-shield-check', title:'Certificados de Aforro', sub:'A partir de €5',
+    body:'Dívida pública vendida diretamente a aforradores. Série F a 2,50%, sem risco de banco.', link:'certs', linkLabel:'Ver certificados' },
+];
+const GLOSS = [
+  ['TANB','Taxa Anual Nominal Bruta: o juro anual antes de impostos.'],
+  ['Taxa líquida','A TANB depois da retenção de 28% (19,6% nos Açores e Madeira).'],
+  ['Retenção na fonte','O banco desconta o imposto automaticamente antes de pagar os juros.'],
+  ['Anexo J','Parte da declaração de IRS para rendimentos obtidos no estrangeiro, como juros de corretoras não portuguesas.'],
+  ['Domiciliação de ordenado','Receber o salário nessa conta. Muitos bancos exigem-na para dar a melhor taxa.'],
+  ['Taxa real','Taxa líquida menos inflação. Se for negativa, o dinheiro perde poder de compra.'],
+  ['Fundo de Garantia de Depósitos','Protege depósitos até €100.000 por pessoa e por banco.'],
+  ['Euribor','Taxa a que os bancos da zona euro emprestam entre si. Indexa os Certificados de Aforro.'],
+  ['Capitalização','Os juros somam-se ao capital e passam também a render juros.'],
+  ['Taxa de depósito do BCE','A taxa que o Banco Central Europeu paga aos bancos. Influencia as taxas das contas.'],
+];
+const LADDER = [
+  ['Conta remunerada','liquidez total',12],['Depósito a prazo','dinheiro preso',22],['Certificados de Aforro','garantia do Estado',30],
+  ['Certificados do Tesouro','Estado · 10 anos',40],['Obrigações do Tesouro','preço varia se vendes antes',55],['Fundos monetários','sem garantia de capital',68],['PPR conservador','regras de resgate',80],
+];
+const CARDS = [
+  { kicker:'Melhor taxa sem condições', big:'4,00%', title:'Trade Republic para novos clientes', sub:'2,88% líquido · até €20.000, até 1 mar 2027', cta:'Ver detalhes', icon:'ph-trophy', act:'tr' },
+  { kicker:'Ganhar a abrir conta', big:'€360', title:'Bankinter Conta Mais Ordenado a 5%', sub:'Líquido num ano com €10.000, se domiciliares o ordenado', cta:'Ver promos', icon:'ph-gift', act:'promos' },
+  { kicker:'Inflação vs poupança', big:'3,8%', title:'A inflação subiu e está acima de todas as taxas líquidas', sub:'A mais perto é a Bankinter com ordenado, a 3,60% líquido', cta:'Ver ranking', icon:'ph-thermometer', act:'rates' },
+  { kicker:'Menos de 35', big:'100%', title:'IRS Jovem: isenção no 1.º ano de trabalho', sub:'E benefícios fiscais até ao 10.º ano', cta:'Ver benefícios', icon:'ph-student', act:'jovem' },
+];
+const TABS = [['home','Início','ph-house'],['rates','Taxas','ph-chart-bar-horizontal'],['calc','Calcular','ph-calculator'],['jovem','Jovem','ph-student'],['learn','Aprender','ph-book-open']];
+
+class Component extends DCLogic {
+  state = { tab:'home', view:null, detail:null, from:null, watch:['tr','bankinter','caf'], filter:'all', amount:10000, months:12, salary:true, islands:false, calcId:'tr',
+    read:{}, notify:{ rates:true, promos:true, ending:true, weekly:true }, perkCat:'Todos', perkOpen:'irs', glossOpen:'TANB', card:0 };
+  scrollRef = React.createRef();
+  componentDidUpdate(pp, ps) {
+    const s = this.state;
+    if (ps.tab !== s.tab || ps.view !== s.view || ps.detail !== s.detail) { const el = this.scrollRef.current; if (el) el.scrollTop = 0; }
+  }
+  go = tab => this.setState({ tab, view:null });
+  open = view => this.setState(s => ({ view, from: s.view }));
+  openDetail = id => this.setState(s => ({ view:'detail', detail:id, from: s.view === 'detail' ? s.from : s.view }));
+  renderVals() {
+    const s = this.state, tr = s.islands ? 0.196 : 0.28, net = g => g * (1 - tr);
+    const variant = this.props.homeVariant ?? 'a';
+    const screen = s.view || s.tab;
+    const chip = (on) => ({ border: on ? 'var(--color-accent)' : 'var(--color-divider)', color: on ? 'var(--color-accent)' : 'var(--color-text)', bg: on ? 'var(--color-accent-900)' : 'transparent' });
+    const sw = on => ({ bg: on ? 'var(--color-accent-800)' : 'var(--color-neutral-900)', border: on ? 'var(--color-accent)' : 'var(--color-neutral-700)', knob: on ? 'var(--color-accent-200)' : 'var(--color-neutral-500)', x: on ? '16px' : '0px' });
+    const unread = ALERTS.filter((a, i) => i < 3 && !s.read[a.id]).length;
+    const sorted = [...P].sort((a, b) => b.best - a.best);
+
+    const filters = [['all','Todas'],['nocond','Sem domiciliação'],['promo','Promos'],['term','A prazo'],['state','Estado']].map(([id, label]) => ({ label, ...chip(s.filter === id), pick: () => this.setState({ filter:id }) }));
+    const fl = { all: () => true, nocond: p => !p.salary, promo: p => p.promo, term: p => p.term, state: p => p.state }[s.filter];
+    const rateRows = sorted.filter(fl).map(p => ({ ...p, gross: pct(p.best), net: pct(net(p.best)), gw: (p.best / SCALE * 100) + '%', nw: (net(p.best) / SCALE * 100) + '%', hasTag: !!p.tag, opacity: p.ended ? .7 : 1, open: () => this.openDetail(p.id) }));
+
+    const netDots = P.map(p => { const n = net(p.best); return { name: p.name, left: Math.min(n / 4 * 100, 100) + '%', color: n > INF ? 'var(--color-accent)' : 'var(--color-neutral-500)' }; });
+    const dumbbells = sorted.map(p => { const n = net(p.best); return { name: p.name, gross: pct(p.best), gl: (p.best / SCALE * 100) + '%', nl: (n / SCALE * 100) + '%', span: ((p.best - n) / SCALE * 100) + '%', open: () => this.openDetail(p.id) }; });
+
+    const promoCards = PROMOS.map(pr => {
+      const p = byId[pr.pid]; const est = pr.none || pr.ended ? null : net(gross(pr.pid, 10000, pr.m, pr.sal));
+      return { name: p.name, title: pr.title, rate: pr.rate, dur: pr.dur, opacity: pr.ended ? .55 : 1, estShort: pr.ended ? 'Terminou' : est == null ? 'A confirmar' : '+' + eur(est) + ' líq.', open: () => this.openDetail(pr.pid) };
+    });
+    const changes = ALERTS.slice(0, 4);
+    const watchRows = s.watch.map(id => byId[id]).map(p => ({ ...p, gross: pct(p.best), net: pct(net(p.best)), open: () => this.openDetail(p.id) }));
+
+    const card = CARDS[s.card];
+    const cardAct = { tr: () => this.openDetail('tr'), promos: () => this.open('promos'), rates: () => this.go('rates'), jovem: () => this.go('jovem') }[card.act];
+
+    // calc
+    const cp = byId[s.calcId], g = gross(cp.id, s.amount, s.months, s.salary), n = net(g), infl = s.amount * INF / 100 * s.months / 12;
+    const calc = { name: cp.name, gross: eur(g), tax: eur(g - n), net: eur(n), netShare: g ? (n / g * 100) + '%' : '0%', real: eur(n - infl),
+      note: n >= infl ? 'Ganhas à inflação neste período.' : `A inflação de 3,8% custa ${eur(infl)} no mesmo período, por isso perdes ${eur(infl - n)} de poder de compra.` };
+    const cmp = P.map(p => ({ p, v: net(gross(p.id, s.amount, s.months, s.salary)) })).sort((a, b) => b.v - a.v).slice(0, 7);
+    const maxV = cmp[0].v || 1;
+    const compare = cmp.map(({ p, v }) => ({ name: p.name, net: eur(v), w: (v / maxV * 100) + '%', bar: p.id === s.calcId ? 'var(--color-accent)' : 'var(--color-accent-800)', color: p.id === s.calcId ? 'var(--color-accent-300)' : 'var(--color-text)', pick: () => this.setState({ calcId: p.id }) }));
+    const monthOpts = [3, 6, 12, 24].map(m => { const on = s.months === m; return { label: m + ' meses', color: on ? 'var(--color-accent)' : 'var(--color-text)', bg: on ? 'var(--color-accent-900)' : 'transparent', ring: on ? 'inset 0 0 0 1px var(--color-accent)' : 'none', pick: () => this.setState({ months: m }) }; });
+    const calcChips = sorted.map(p => ({ name: p.name, ...chip(p.id === s.calcId), pick: () => this.setState({ calcId: p.id }) }));
+    const toggles = [['salary','Tenho ordenado domiciliado'],['islands','Resido nos Açores ou Madeira (19,6%)']].map(([k, label]) => ({ label, ...sw(s[k]), flip: () => this.setState(st => ({ [k]: !st[k] })) }));
+
+    const perkCats = ['Todos','Impostos','Casa','Poupança'].map(c => ({ label: c, ...chip(s.perkCat === c), pick: () => this.setState({ perkCat: c }) }));
+    const perks = PERKS.filter(p => s.perkCat === 'Todos' || p.cat === s.perkCat).map(p => { const open = s.perkOpen === p.id; return { ...p, open, caret: open ? 'ph-caret-up' : 'ph-caret-down', shadow: open ? 'var(--shadow-md)' : 'var(--shadow-sm)', hasChart: !!p.chart, hasLink: !!p.link, link: () => this.open(p.link), toggle: () => this.setState({ perkOpen: open ? null : p.id }) }; });
+    const irsBars = [100,75,75,75,50,50,50,25,25,25].map((v, i) => ({ h: v * .7 + 'px', o: i === 0 ? 1 : .55 }));
+
+    const alerts = ALERTS.map((a, i) => { const un = i < 3 && !s.read[a.id]; return { ...a, unread: un, bg: un ? 'var(--color-surface)' : 'transparent', shadow: un ? 'var(--shadow-sm)' : 'none', open: () => { this.setState(st => ({ read: { ...st.read, [a.id]: true } })); this.openDetail(a.pid); } }; });
+    const notifyRows = [['rates','Muda a taxa de quem sigo','Trade Republic, Bankinter e outros'],['promos','Há uma promo nova','Para novos clientes'],['ending','Uma promo está a acabar','7 dias antes'],['weekly','Resumo semanal','À segunda de manhã']].map(([k, label, sub]) => ({ label, sub, ...sw(s.notify[k]), flip: () => this.setState(st => ({ notify: { ...st.notify, [k]: !st.notify[k] } })) }));
+
+    const gloss = GLOSS.map(([term, def]) => { const open = s.glossOpen === term; return { term, def, open, caret: open ? 'ph-minus' : 'ph-plus', toggle: () => this.setState({ glossOpen: open ? null : term }) }; });
+    const ladder = LADDER.map(([name, note, w], i) => ({ n: i + 1, name, note, w: w + '%' }));
+
+    let d = {};
+    if (s.detail) {
+      const p = byId[s.detail], following = s.watch.includes(p.id);
+      const facts = [['Taxas', p.rateText], ['Limite', p.cap], p.pay && ['Juros', p.pay], ['Impostos', p.tax], ['Taxa real', pct(net(p.best) - INF) + ' vs inflação'], p.term && ['Liquidez', 'Dinheiro preso até ao fim do prazo']].filter(Boolean).map(([k, v]) => ({ k, v }));
+      d = { checked: '21 set 2026', ...p, gross: pct(p.best), net: pct(net(p.best)), facts, followLabel: following ? 'A seguir' : 'Seguir', followIcon: following ? 'ph-fill ph-star' : 'ph ph-star',
+        toggleFollow: () => this.setState(st => ({ watch: following ? st.watch.filter(x => x !== p.id) : [...st.watch, p.id] })),
+        simulate: () => this.setState({ calcId: p.id, tab: 'calc', view: null }) };
+    }
+
+    return {
+      scrollRef: this.scrollRef, isTab: !s.view, isOverlay: !!s.view,
+      overlayTitle: { alerts:'', promos:'', certs:'', detail:'' }[s.view] ?? '',
+      back: () => this.setState(st => ({ view: st.from || null, from: null })),
+      homeA: screen === 'home' && variant === 'a', homeB: screen === 'home' && variant === 'b', homeC: screen === 'home' && variant === 'c',
+      sRates: screen === 'rates', sCalc: screen === 'calc', sJovem: screen === 'jovem', sLearn: screen === 'learn', sAlerts: screen === 'alerts', sPromos: screen === 'promos', sCerts: screen === 'certs', sDetail: screen === 'detail',
+      unread, hasUnread: unread > 0,
+      goAlerts: () => this.open('alerts'), goPromos: () => this.open('promos'), goCerts: () => this.open('certs'),
+      goJovem: () => this.go('jovem'), goCalc: () => this.go('calc'), goRates: () => this.go('rates'), openTop: () => this.openDetail('tr'),
+      openCaf: () => this.openDetail('caf'), openCtp: () => this.openDetail('ctp'), simCaf: () => this.setState({ calcId: 'caf', tab: 'calc', view: null }),
+      count: P.length, promoCount: PROMOS.filter(x => !x.ended).length, netDots, dumbbells, promoCards, changes, watchRows, noWatch: !watchRows.length,
+      card: { ...card, act: cardAct }, cardPos: (s.card + 1) + ' / ' + CARDS.length,
+      cardDots: CARDS.map((c, i) => ({ color: i === s.card ? 'var(--color-accent)' : 'var(--color-neutral-800)', go: () => this.setState({ card: i }) })),
+      nextCard: () => this.setState(st => ({ card: (st.card + 1) % CARDS.length })), prevCard: () => this.setState(st => ({ card: (st.card + CARDS.length - 1) % CARDS.length })),
+      filters, rateRows, taxLabel: s.islands ? '19,6%' : '28%',
+      amount: s.amount, amountLabel: eur(s.amount), setAmount: e => this.setState({ amount: +e.target.value }), monthsLabel: s.months + ' meses',
+      monthOpts, calcChips, toggles, calc, compare,
+      perkCats, perks, irsBars, alerts, notifyRows, readAll: () => this.setState({ read: Object.fromEntries(ALERTS.map(a => [a.id, true])) }),
+      gloss, ladder, d,
+      tabs: TABS.map(([id, label, icon]) => { const on = !s.view && s.tab === id; return { label, cls: (on ? 'ph-fill ' : 'ph ') + icon, color: on ? 'var(--color-accent)' : 'var(--color-neutral-500)', go: () => this.go(id) }; }),
+    };
+  }
+}
+</script>
+</body>
+</html>
