@@ -1,6 +1,6 @@
 // Guarda a app no telemóvel para abrir mesmo sem rede.
 // Ao mudar ficheiros, sobe o número da versão para os telemóveis receberem a atualização.
-const CACHE = 'clarainveste-v1';
+const CACHE = 'clarainveste-v2';
 const FILES = [
   './', './index.html', './app.js', './styles.css', './manifest.webmanifest',
   './vendor/htm-preact.mjs',

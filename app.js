@@ -1,39 +1,43 @@
 import { html, render, Component } from './vendor/htm-preact.mjs';
 
-/* ───────────── Dados (13 nov 2026) ───────────── */
+/* ───────────── Dados (16 nov 2026) ───────────── */
 const INF = 3.8, SCALE = 5.5;
 const pct = (n, d = 2) => n.toFixed(d).replace('.', ',') + '%';
 const eur = n => (n < 0 ? '−' : '') + '€' + String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
 const P = [
-  { id:'tr', name:'Trade Republic', product:'Conta à ordem remunerada', kind:'Corretora', mono:'TR', best:4.00, rateText:'4,00% / 2,50%', cap:'€20.000 a 4% (novos clientes); 2,50% acima, sem limite', pay:'Diário, pago mensalmente', tax:'Retido na fonte (IBAN PT)', promo:true, tag:'Novos clientes', checked:'13 nov 2026',
-    notes:['Novos clientes desde 12 nov 2026: 4% TANB (4,07% TAE) até €20.000, até 1 mar 2027.','Acima de €20.000 e para clientes existentes: 2,50% (taxa de depósito do BCE).','Quem tinha a promo anterior de 3% passa para 2,50% a 27 nov 2026.','IBAN português (PT50); juros diários, pagos mensalmente, 28% retido na fonte.'] },
-  { id:'t212', name:'Trading 212', product:'Cash remunerado', kind:'Corretora', mono:'T2', best:2.50, rateText:'4,20% (terminou) / 2,50%', cap:'Promo para contas abertas 16 set – 2 nov 2026', pay:'Diário', tax:'Não retido — declarar no Anexo J', ended:true, tag:'Promo terminou',
-    notes:['4,20% durante 4 meses em contas novas abertas até 2 nov; 2,50% taxa padrão.','Entidade não portuguesa: os juros NÃO são retidos na fonte e têm de ser declarados (Anexo J).','Juros pagos diariamente.'] },
-  { id:'xtb', name:'XTB', product:'Juros sobre saldo não investido', kind:'Corretora', mono:'XT', best:4.50, rateText:'4,50% (90 dias) / 1,10%', cap:'€20.000 · contas abertas até 31 dez 2026', pay:'Diário, pago mensalmente', tax:'Retido na fonte', promo:true, tag:'90 dias', checked:'4 nov 2026',
-    notes:['Boas-vindas subiu de 2,60% para 4,50% nos primeiros 90 dias, até €20.000.','Depois desce para 1,10%, a taxa de quem já tem conta (antes era 1,70%).','Válido para contas abertas até 31 dez 2026.'] },
-  { id:'revolut', name:'Revolut', product:'Cofres remunerados', kind:'Neobanco', mono:'RV', best:2.25, rateText:'1,50%–2,25%', cap:'Até €100.000', pay:'Diário', tax:'Confirmar com a Revolut',
-    notes:['Por plano: Standard/Plus 1,50%, Premium 1,75%, Metal 2,00%, Ultra 2,25%.','A promo de 2,50% para todos os planos expirou a 20 jul 2026.','Depósitos cobertos pelo fundo de garantia de depósitos lituano.'] },
-  { id:'bankinter', name:'Bankinter', product:'Conta Mais Ordenado / Digital', kind:'Banco', mono:'BK', best:5.00, rateText:'5,00% → 2,00% / 3,00%', cap:'Reportados ≈€10k–100k — confirmar', pay:'Mensal', tax:'Retido na fonte', salary:true, promo:true, tag:'Com ordenado',
-    notes:['Conta Mais Ordenado: 5% no 1.º ano, 2% no 2.º; exige domiciliação de ordenado ou pensão.','Conta Digital: 3% durante 3 meses para novos clientes (campanha set 2026), depois 3% com domiciliação ou 2,5% sem.'] },
-  { id:'ctt', name:'Banco CTT', product:'Conta Poupança Livre', kind:'Banco', mono:'CT', best:3.00, rateText:'3,00% / 0,50%', cap:'€5.000', pay:'Trimestral', tax:'Retido na fonte', salary:true, tag:'Com ordenado',
-    notes:['3% exige domiciliação de ordenado (mín. €800/mês) ou 3 débitos diretos ativos; sem isso, 0,50%.','Movimentação livre, sem prazo.'] },
-  { id:'activo', name:'ActivoBank', product:'PoupeUp Premium', kind:'Banco', mono:'AB', best:2.25, rateText:'2,25%', cap:'Até €20.000', tax:'Retido na fonte', checked:'4 nov 2026 (taxa a confirmar)',
-    notes:['A campanha de 5% na Conta PoupeUp terminou em outubro.','PoupeUp Premium: 2,25% até €20.000 (valor de jul 2026, confirmar).','Conta gratuita, do grupo Millennium bcp.'] },
-  { id:'openbank', name:'Openbank', product:'Poupança Boas-vindas', kind:'Banco', mono:'OB', best:2.50, rateText:'2,50%', cap:'Até €500.000', tax:'Retido na fonte', promo:true, tag:'6 meses', checked:'nov 2026',
-    notes:['Exclusiva para novos clientes, válida nos primeiros 6 meses.','Também tem depósito a prazo de 6 meses a 2,50% para novos clientes.'] },
-  { id:'klarna', name:'Klarna', product:'Poupança a prazo fixo', kind:'Banco', mono:'KL', best:3.15, rateText:'2,15% (6m) · 2,95% (12m) · 3,15% (24m)', cap:'Desde €1', tax:'Confirmar com a Klarna', tag:'Prazo', term:true, checked:'2 nov 2026',
-    notes:['Taxa fixa garantida pelo prazo escolhido; o dinheiro fica preso até ao fim.','6 meses 2,15%, 12 meses 2,95%, 24 meses 3,15%.'] },
-  { id:'novobanco', name:'Novobanco', product:'DP Novos Recursos 12 meses', kind:'Banco', mono:'NB', best:3.00, rateText:'3,00%', cap:'€100 a €5.000 de dinheiro novo', tax:'Retido na fonte', tag:'Prazo', term:true, promo:true, checked:'2 nov 2026',
-    notes:['Depósito a prazo de 12 meses só para dinheiro novo no banco.','Montante entre €100 e €5.000.'] },
+  { id:'tr', name:'Trade Republic', product:'Conta à ordem remunerada', kind:'Corretora', mono:'TR', best:4.00, rateText:'4,00% / 2,50%', cap:'€20.000 a 4% (novos clientes); 2,50% acima, sem limite', pay:'Diário, pago mensalmente', tax:'Retido na fonte (IBAN PT)', promo:true, tag:'Novos clientes', checked:'16 nov 2026',
+    notes:['Novos clientes desde 12 nov 2026: 4% TANB (4,07% TAE) até €20.000, até 1 mar 2027.','Acima de €20.000 e para clientes existentes: 2,50% (taxa de depósito do BCE).','Quem tinha a promo anterior de 3% passa para 2,50% a 27 nov 2026.','Clientes atuais podem ter 4% durante 2 meses por cada amigo convidado (máx. 4).','Parte do saldo vai para fundos monetários, que não têm a garantia de depósitos.','IBAN português (PT50); juros diários, pagos mensalmente, 28% retido na fonte.'] },
+  { id:'t212', name:'Trading 212', product:'Cash remunerado', kind:'Corretora', mono:'T2', best:4.20, rateText:'4,20% (4 meses) / 2,50%', cap:'Até €100.000 · contas abertas até 30 nov 2026', pay:'Diário', tax:'Não retido — declarar no Anexo J', promo:true, tag:'Até 30 nov', checked:'16 nov 2026 (confirmar na app)',
+    notes:['Contas novas abertas até 30 nov 2026: 4,20% durante 4 meses, até €100.000.','É preciso fazer o depósito mínimo e ativar os juros nos 10 dias seguintes à abertura.','Depois, e para contas antigas: 2,50%.','Entidade não portuguesa: os juros NÃO são retidos na fonte e têm de ser declarados (Anexo J).','O dinheiro fica em fundos monetários, sem a garantia de depósitos.'] },
+  { id:'xtb', name:'XTB', product:'Juros sobre saldo não investido', kind:'Corretora', mono:'XT', best:4.50, rateText:'4,50% (90 dias) / 1,10%', cap:'€20.000 · contas abertas até 31 dez 2026', pay:'Diário, pago mensalmente', tax:'Retido na fonte', promo:true, tag:'90 dias', checked:'16 nov 2026',
+    notes:['Boas-vindas de 4,50% nos primeiros 90 dias, até €20.000.','Condição: comprar ou vender pelo menos 1 ação ou ETF inteiro em cada mês. Frações, CFD e planos de investimento não contam. Mês sem ordem rende 1,10%.','Depois desce para 1,10%, a taxa de quem já tem conta.','Válido para contas abertas entre 14 out e 31 dez 2026, sem conta XTB nos últimos 12 meses.'] },
+  { id:'revolut', name:'Revolut', product:'Cofres remunerados', kind:'Neobanco', mono:'RV', best:2.25, rateText:'1,50%–2,25%', cap:'Até €100.000', pay:'Diário', tax:'Retido na fonte (IBAN PT)', checked:'16 nov 2026',
+    notes:['Por plano: Standard/Plus 1,50%, Premium 1,75%, Metal 2,00%, Ultra 2,25%.','Alguns sites mostram até 2,75% no Ultra; confirma na app.','Os planos pagos têm mensalidade, que come parte dos juros.','Depósitos cobertos pelo fundo de garantia de depósitos lituano.'] },
+  { id:'bankinter', name:'Bankinter', product:'Conta Mais Ordenado / Online', kind:'Banco', mono:'BK', best:5.00, rateText:'5,00% → 2,00% / 3,00%', cap:'€10.000 (Mais Ordenado) · €100.000 (Online)', pay:'Mensal', tax:'Retido na fonte', salary:true, promo:true, tag:'Com ordenado', checked:'16 nov 2026',
+    notes:['Conta Mais Ordenado: 5% no 1.º ano e 2% no 2.º, só sobre os primeiros €10.000.','Exige ordenado ou pensão de pelo menos €750 em 2 de cada 3 meses, cartão de crédito com 5 compras por período e não ter crédito à habitação no banco.','Conta Online: 3% nos primeiros 3 meses para novos clientes, depois 3% com ordenado ou 2,5% sem, até €100.000.'] },
+  { id:'ctt', name:'Banco CTT', product:'Conta Poupança Livre', kind:'Banco', mono:'CT', best:3.00, rateText:'3,00% / 0,50%', cap:'€5.000', pay:'Trimestral', tax:'Retido na fonte', salary:true, tag:'Com ordenado', checked:'16 nov 2026',
+    notes:['3% exige domiciliação de ordenado (mín. €800/mês) ou 3 débitos diretos ativos; sem isso, 0,50%.','Acima de €5.000 não rende. Máximo de €150 brutos por ano.','Movimentação livre, sem prazo.'] },
+  { id:'activo', name:'ActivoBank', product:'PoupeUp Premium', kind:'Banco', mono:'AB', best:2.50, rateText:'2,50%', cap:'Até €20.000', pay:'Mensal', tax:'Retido na fonte', checked:'16 nov 2026 (dados de 11 out)',
+    notes:['PoupeUp com Plano AB Premium: 2,50% até €20.000 (antes indicávamos 2,25%).','Exige o Plano AB Premium ativo na app. Aberta também a clientes atuais.','A campanha de 5% na Conta PoupeUp terminou em outubro.','Conta do grupo Millennium bcp.'] },
+  { id:'openbank', name:'Openbank', product:'Poupança Boas-vindas', kind:'Banco', mono:'OB', best:2.50, rateText:'2,50% → 2,00% / 1,00%', cap:'Até €500.000', tax:'Retido na fonte', promo:true, tag:'6 meses', checked:'16 nov 2026',
+    notes:['Exclusiva para novos clientes, 2,50% nos primeiros 6 meses.','Depois: 2,00% com ordenado ou transferência mensal de €700+, senão 1,00%.','Também tem depósito a prazo de 6 meses a 2,50% para novos clientes.'] },
+  { id:'klarna', name:'Klarna', product:'Poupança a prazo fixo', kind:'Banco', mono:'KL', best:3.24, rateText:'2,42% (6m) · 2,95% (12m) · 3,15% (24m) · 3,24% (48m)', cap:'Desde €1', tax:'Não retido — declarar no Anexo J', tag:'Prazo', term:true, checked:'16 nov 2026',
+    notes:['Taxa fixa garantida pelo prazo escolhido; o dinheiro fica preso até ao fim.','6 meses 2,42% (subiu de 2,15%), 12 meses 2,95%, 24 meses 3,15%, 36 meses 3,19%, 48 meses 3,24%.','Também tem Conta Flex a 2,20%, sem prazo.','Banco sueco: não retém imposto, tens de declarar os juros no IRS.'] },
+  { id:'novobanco', name:'Novobanco', product:'DP Novos Recursos 12 meses', kind:'Banco', mono:'NB', best:3.00, rateText:'3,00%', cap:'€100 a €5.000 de dinheiro novo', tax:'Retido na fonte', tag:'Prazo', term:true, promo:true, checked:'16 nov 2026',
+    notes:['Depósito a prazo de 12 meses só para dinheiro novo no banco (transferido nos 30 dias anteriores).','Montante entre €100 e €5.000. Só no site ou na app.','Para novos clientes há também um DP de 6 meses a 3,25%, a partir de €10.000.'] },
   { id:'montepio', name:'Banco Montepio', product:'Poupança Super', kind:'Banco', mono:'MP', best:2.25, rateText:'1,75%–2,25%', cap:'Varia por escalão', tax:'Retido na fonte',
     notes:['Estruturada em até 6 semestres; a taxa sobe por escalão atingido.','Saldos de conta à ordem rendem 0,00%.','Taxas do preçário de 14 set 2026.'] },
   { id:'millennium', name:'Millennium bcp', product:"Poupança Aforro / Let's GO!", kind:'Banco', mono:'MB', best:1.75, rateText:'0,10%–0,20% / ≤1,75%', cap:'€25–€100.000', tax:'Retido na fonte',
     notes:['Entre as taxas mais baixas dos grandes bancos portugueses.',"\"Let's GO!\" exige que o saldo cresça um valor definido em cada período.",'Prazo mínimo de 6 meses na Conta Poupança Aforro.'] },
   { id:'big', name:'Banco BiG', product:'Conta BiG Aforro', kind:'Banco', mono:'BG', best:1.50, rateText:'1,00% / 1,50%', cap:'1 levantamento grátis/ano, até €100.000', pay:'Diário, pago trimestralmente', tax:'Retido na fonte',
     notes:['1,00% base; sobe para 1,50% após 3 meses seguidos de reforços de €150+.','Levantamentos extra perdem os juros desse mês.'] },
-  { id:'caf', name:'Certificados de Aforro', product:'Série F', kind:'Estado', mono:'CA', best:2.50, rateText:'2,500%', cap:'Mínimo €5', pay:'Capitalizam', tax:'Retido na fonte', state:true, tag:'Estado',
-    notes:['Taxa variável, indexada mensalmente à Euribor a 3 meses, com teto de 2,5%.','Resgatável após 3 meses; os juros capitalizam.','Vendidos nos CTT e no Banco BiG.'] },
+  { id:'bigsd', name:'Banco BiG', product:'Super Depósito', kind:'Banco', mono:'BS', best:4.00, rateText:'4,00% (3m) · 3,50% (6m)', cap:'€5.000 a €50.000 (3m) · €10.000 a €50.000 (6m)', pay:'No fim do prazo', tax:'Retido na fonte', promo:true, term:true, tag:'Novos clientes', checked:'16 nov 2026',
+    notes:['Depósito a prazo para novos clientes, nos primeiros 3 meses como cliente, com dinheiro vindo de outro banco.','3 meses a 4,00% (€5.000 a €50.000) ou 6 meses a 3,50% (€10.000 a €50.000).','Um por morada. Levantar antes do fim custa a maior parte dos juros.','Coberto pelo Fundo de Garantia de Depósitos até €100.000.'] },
+  { id:'haitong', name:'Haitong Bank', product:'Depósito HB Sem Mobilização', kind:'Banco', mono:'HB', best:3.30, rateText:'3,05% (3m) · 3,20% (6m) · 3,25% (12m) · 3,30% (24m)', cap:'Sem mínimo', pay:'No fim do prazo', tax:'Retido na fonte', term:true, tag:'Prazo', checked:'16 nov 2026',
+    notes:['Depósito a prazo aberto a todos, não só a novos clientes, e sem montante mínimo.','Não mobilizável: o dinheiro fica preso até ao fim e não aceita reforços.','Só por canais digitais (site ou app).','Há uma versão mobilizável a 3,20% (12 meses).','Coberto pelo Fundo de Garantia de Depósitos até €100.000.'] },
+  { id:'caf', name:'Certificados de Aforro', product:'Série F', kind:'Estado', mono:'CA', best:2.50, rateText:'2,500%', cap:'Mínimo €5', pay:'Capitalizam', tax:'Retido na fonte', state:true, tag:'Estado', checked:'16 nov 2026',
+    notes:['Taxa variável, indexada mensalmente à Euribor a 3 meses, com teto de 2,5% (no teto pelo 3.º mês seguido em novembro).','Prémio de permanência de +0,25% do 2.º ao 5.º ano.','Resgatável após 3 meses; os juros capitalizam.','Vendidos nos CTT e no Banco BiG.'] },
   { id:'ctp', name:'Certificados do Tesouro', product:'Série 5', kind:'Estado', mono:'TS', best:3.35, rateText:'2,35% → 3,35%', cap:'Mínimo €1.000', pay:'Cupão anual', tax:'Retido na fonte', state:true, tag:'Estado',
     notes:['Taxa fixa que sobe todos os anos, prazo de 10 anos (média ≈2,71%).','Sem capitalização: juros pagos em cupão anual.','Lançado em jul 2026, substitui a série CTPV.'] },
 ];
@@ -42,19 +46,21 @@ const byId = Object.fromEntries(P.map(p => [p.id, p]));
 function gross(id, A, m, sal) {
   const y = m / 12, f = x => Math.min(m, x) / 12, r = x => Math.max(0, m - x) / 12;
   switch (id) {
-    case 'tr': { const p = Math.min(m, 3.6) / 12; return Math.min(A, 20000) * (.04 * p + .025 * (y - p)) + Math.max(0, A - 20000) * .025 * y; }
-    case 't212': return A * .025 * y;
+    case 'tr': { const p = Math.min(m, 3.5) / 12; return Math.min(A, 20000) * (.04 * p + .025 * (y - p)) + Math.max(0, A - 20000) * .025 * y; }
+    case 't212': return Math.min(A, 100000) * (.042 * f(4) + .025 * r(4));
     case 'xtb': return Math.min(A, 20000) * (.045 * f(3) + .011 * r(3)) + Math.max(0, A - 20000) * .011 * y;
-    case 'openbank': return A * .025 * f(6);
-    case 'klarna': return A * (m < 12 ? .0215 : m < 24 ? .0295 : .0315) * y;
+    case 'openbank': return Math.min(A, 500000) * (.025 * f(6) + (sal ? .02 : .01) * r(6));
+    case 'klarna': return A * (m < 12 ? .0242 : m < 24 ? .0295 : m < 36 ? .0315 : m < 48 ? .0319 : .0324) * y;
     case 'novobanco': return Math.min(A, 5000) * .03 * f(12);
     case 'revolut': return Math.min(A, 100000) * .015 * y;
-    case 'bankinter': return sal ? A * (.05 * f(12) + .02 * (Math.min(m, 24) - Math.min(m, 12)) / 12) : A * (.03 * f(3) + .025 * r(3));
+    case 'bankinter': return sal ? Math.min(A, 10000) * (.05 * f(12) + .02 * (Math.min(m, 24) - Math.min(m, 12)) / 12) : Math.min(A, 100000) * (.03 * f(3) + .025 * r(3));
     case 'ctt': return Math.min(A, 5000) * (sal ? .03 : .005) * y;
-    case 'activo': return Math.min(A, 20000) * .0225 * y;
+    case 'activo': return Math.min(A, 20000) * .025 * y;
     case 'montepio': return A * .0175 * y;
     case 'millennium': return A * .002 * y;
     case 'big': return A * (.01 * f(3) + .015 * r(3));
+    case 'bigsd': return A < 5000 ? 0 : m >= 6 && A >= 10000 ? Math.min(A, 50000) * .035 * .5 : Math.min(A, 50000) * .04 * f(3);
+    case 'haitong': return A * (m < 6 ? .0305 : m < 12 ? .032 : m < 24 ? .0325 : .033) * y;
     case 'caf': return A * .025 * y;
     case 'ctp': return A * .0235 * y;
   }
@@ -62,20 +68,21 @@ function gross(id, A, m, sal) {
 }
 
 const ALERTS = [
-  { id:'a1', icon:'ph-rocket-launch', title:'Trade Republic sobe para 4%', body:'Novos clientes: 4% até €20.000, até 1 mar 2027. Acima disso e para clientes atuais, 2,50%.', when:'ontem', pid:'tr' },
-  { id:'a2', icon:'ph-trend-down', title:'Trade Republic: fim dos 3%', body:'Quem abriu conta com a promo de 3% passa para 2,50% a 27 nov.', when:'ontem', pid:'tr' },
-  { id:'a3', icon:'ph-gift', title:'XTB: boas-vindas a 4,50%', body:'Primeiros 90 dias, até €20.000. Depois desce para 1,10%. Contas abertas até 31 dez.', when:'4 nov', pid:'xtb' },
-  { id:'a4', icon:'ph-thermometer', title:'Inflação sobe para 3,8%', body:'Nenhuma conta que seguimos bate a inflação depois de impostos.', when:'4 nov', pid:'bankinter' },
-  { id:'a5', icon:'ph-x-circle', title:'ActivoBank', body:'Terminou a campanha de 5% na Conta PoupeUp.', when:'4 nov', pid:'activo' },
-  { id:'a6', icon:'ph-clock-counter-clockwise', title:'Trading 212', body:'A promo de 4,20% para contas novas terminou a 2 nov. Taxa padrão: 2,50%.', when:'2 nov', pid:'t212' },
+  { id:'a20261116a', icon:'ph-sparkle', title:'Novo: Banco BiG a 4%', body:'Super Depósito de 3 meses para novos clientes, de €5.000 a €50.000. Há também 6 meses a 3,50%.', when:'hoje', pid:'bigsd' },
+  { id:'a20261116b', icon:'ph-sparkle', title:'Novo: Haitong Bank até 3,30%', body:'Depósito a prazo sem mínimo e aberto a todos: 3,25% a 12 meses, 3,30% a 24. O dinheiro fica preso.', when:'hoje', pid:'haitong' },
+  { id:'a20261116c', icon:'ph-gift', title:'Trading 212: promo até 30 nov', body:'Corrigimos: os 4,20% durante 4 meses ainda valem para contas novas abertas até 30 nov, até €100.000.', when:'hoje', pid:'t212' },
+  { id:'a20261116d', icon:'ph-trend-up', title:'Klarna sobe o prazo de 6 meses', body:'De 2,15% para 2,42%. O prazo de 48 meses paga 3,24%.', when:'hoje', pid:'klarna' },
+  { id:'a20261116e', icon:'ph-warning-circle', title:'Bankinter: 5% só até €10.000', body:'A Conta Mais Ordenado só paga 5% sobre os primeiros €10.000. Acertámos as contas.', when:'hoje', pid:'bankinter' },
+  { id:'a1', icon:'ph-rocket-launch', title:'Trade Republic sobe para 4%', body:'Novos clientes: 4% até €20.000, até 1 mar 2027. Acima disso e para clientes atuais, 2,50%.', when:'12 nov', pid:'tr' },
 ];
 const PROMOS = [
-  { pid:'bankinter', title:'Conta Mais Ordenado', rate:'5,00%', dur:'1.º ano, com domiciliação de ordenado', m:12, sal:true },
-  { pid:'xtb', title:'Boas-vindas', rate:'4,50%', dur:'90 dias, até €20.000 · abrir até 31 dez', m:3 },
-  { pid:'tr', title:'Conta remunerada', rate:'4,00%', dur:'Até €20.000, até 1 mar 2027', m:3.6 },
+  { pid:'bankinter', title:'Conta Mais Ordenado', rate:'5,00%', dur:'1.º ano, até €10.000, com ordenado', m:12, sal:true },
+  { pid:'xtb', title:'Boas-vindas', rate:'4,50%', dur:'90 dias, até €20.000 · 1 ordem por mês · abrir até 31 dez', m:3 },
+  { pid:'t212', title:'Cash remunerado', rate:'4,20%', dur:'4 meses, até €100.000 · abrir até 30 nov', m:4 },
+  { pid:'bigsd', title:'Super Depósito', rate:'4,00%', dur:'Prazo de 3 meses, €5.000–€50.000', m:3 },
+  { pid:'tr', title:'Conta remunerada', rate:'4,00%', dur:'Até €20.000, até 1 mar 2027', m:3.5 },
   { pid:'novobanco', title:'DP Novos Recursos', rate:'3,00%', dur:'Prazo de 12 meses, até €5.000', m:12 },
   { pid:'openbank', title:'Poupança Boas-vindas', rate:'2,50%', dur:'Primeiros 6 meses', m:6 },
-  { pid:'t212', title:'Cash remunerado', rate:'4,20%', dur:'Terminou a 2 nov 2026', ended:true },
   { pid:'activo', title:'Conta PoupeUp', rate:'5,00%', dur:'Campanha terminou em outubro', ended:true },
 ];
 const PERKS = [
@@ -191,7 +198,7 @@ class App extends Component {
     return html`
       <div class="screen" style="gap:22px">
         <div>
-          <div class="small" style="font-size:12px">Semana 46 · 9–15 nov</div>
+          <div class="small" style="font-size:12px">Semana 47 · 16–22 nov</div>
           <h2 style="margin-top:2px">O teu resumo</h2>
         </div>
         <button class="tap" onClick=${() => this.openDetail('tr')} style="padding:18px;border-radius:var(--radius-lg);background:var(--color-accent-900);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:6px">
@@ -262,7 +269,7 @@ class App extends Component {
           <button onClick=${() => this.go('jovem')} class="btn btn-secondary" style="flex-direction:column;gap:6px;padding:14px 6px;font-size:12px"><i class="ph ph-student" style="font-size:22px" aria-hidden="true"></i>Menos de 35</button>
           <button onClick=${() => this.go('calc')} class="btn btn-secondary" style="flex-direction:column;gap:6px;padding:14px 6px;font-size:12px"><i class="ph ph-calculator" style="font-size:22px" aria-hidden="true"></i>Simular</button>
         </div>
-        <p class="small">Dados atualizados a 13 nov 2026. Informativo, não é aconselhamento financeiro. Confirma sempre com a instituição.</p>
+        <p class="small">Dados atualizados a 16 nov 2026. Informativo, não é aconselhamento financeiro. Confirma sempre com a instituição.</p>
       </div>`;
   }
 
